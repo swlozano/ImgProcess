@@ -1,9 +1,23 @@
 package utils;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.FileImageOutputStream;
+import javax.imageio.stream.ImageOutputStream;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.imageio.*;
+import javax.imageio.metadata.IIOInvalidTreeException;
+import javax.imageio.metadata.IIOMetadata;
+import javax.imageio.metadata.IIOMetadataNode;
+import javax.imageio.stream.ImageOutputStream;
+import java.awt.image.RenderedImage;
+import java.io.IOException;
 
 public class SuperRandom {
 
@@ -16,10 +30,14 @@ public class SuperRandom {
 	public static int[] arrRandomNumbers;
 	static int step = 1;
 	
-	//Hola
+	//
 
 	public static void main(String args[]) throws IOException {
+		
+		
 
+		
+		
 		SuperRandom sp = new SuperRandom(100, 100);
 		
 		for (int i = 0; i < 100 * 100; i++) {
