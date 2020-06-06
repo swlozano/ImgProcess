@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import javax.swing.SwingConstants;
 import process.Grayscle;
 import process.Read;
 import utils.SuperRandom;
+import utils.file.FileManager;
 
 public class Main implements Runnable {
 
@@ -51,10 +53,10 @@ public class Main implements Runnable {
 		frame.setVisible(true);
 	}
 
-	public static void main2(String[] args) {
+	public static void canvas(String[] args) {
 		final String title = "Test Window";
-		final int width = 1280;
-		final int height = 800;
+		final int width = 1280 * 2;
+		final int height = 800 * 2;
 
 		// Creating the frame.
 		JFrame frame = new JFrame(title);
@@ -87,10 +89,30 @@ public class Main implements Runnable {
 			bufferStrategy = canvas.getBufferStrategy();
 			graphics = bufferStrategy.getDrawGraphics();
 			graphics.clearRect(0, 0, width, height);
-
 			graphics.setColor(Color.GREEN);
 
-			graphics.drawString("This is some text placed in the top left corner.", 0, 15);
+			FileManager fileManager = new FileManager();
+			BufferedReader br = fileManager.read_("/Users/dev/Downloads/banner.txt");
+			String st;
+			int y = 0;
+			int x = 0;
+			try {
+				while ((st = br.readLine()) != null) {
+					x = 0;
+					for (int i = 50; i < st.length(); i++) {
+						graphics.drawString(st.charAt(i) + "", x, y);
+						x += 10;
+						// System.out.println("lenght "+st.toCharArray().length);
+						// graphics.drawChars(st.toCharArray(), 100, st.toCharArray().length-100, x, y);
+						// x+=10;
+					}
+					y += 10;
+
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			bufferStrategy.show();
 			graphics.dispose();
@@ -105,37 +127,45 @@ public class Main implements Runnable {
 		// while ((st = br.readLine()) != null)
 		// System.out.println(st);
 
+		/*
+		 * Thread t = new Thread(new Runnable() { File file = new
+		 * File("/Users/dev/Downloads/banner.txt"); BufferedReader br = new
+		 * BufferedReader(new FileReader(file)); String st;
+		 * 
+		 * @Override public void run() {
+		 * 
+		 * try {
+		 * 
+		 * while ((st = br.readLine()) != null) {
+		 * 
+		 * for (int i = 0; i < st.length(); i++) {
+		 * 
+		 * System.out.print(st.charAt(i)); try { Thread.sleep(0, 1); } catch
+		 * (InterruptedException e) { e.printStackTrace(); } } System.out.println(); } }
+		 * catch (IOException e) { e.printStackTrace(); }
+		 * 
+		 * } }); t.start();
+		 */
+
+		// System.out.print("---------");
+		// System.out.close();
+		// canvas(null);
+		FileManager fileManager = new FileManager();
+
 		Thread t = new Thread(new Runnable() {
-			File file = new File("/Users/dev/Downloads/banner_.txt");
-
-			BufferedReader br = new BufferedReader(new FileReader(file));
-
-			String st;
 
 			@Override
 			public void run() {
-
 				try {
 
-					while ((st = br.readLine()) != null) {
-
-						for (int i = 0; i < st.length(); i++) {
-
-							if (st.charAt(i) == ":".charAt(0))
-								System.out.print("$".charAt(0));
-							else
-								System.out.print(st.charAt(i));
-							try {
-								Thread.sleep(0, 1);
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-						// System.out.println(st);
-						System.out.println();
-
+					for (int i = 0; i <= 100; i++) {
+						Thread.sleep(500);
+						fileManager.write2("/Users/dev/eclipse-workspace/ImgProcess/out/banner.txt", "count\n" + i);
 					}
+
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -149,14 +179,6 @@ public class Main implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("------------------$$$$$$$$$$$$$$$$$$$$$$$$$$$$$------------------->");
-		// TODO Auto-generated method stub
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 	}
 
