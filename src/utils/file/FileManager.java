@@ -64,12 +64,12 @@ public class FileManager {
 
 	}
 
-	public void write(String filePath) {
-		String str = "Hello";
+	public void write(String filePath, String strToWrite) {
+		
 		FileOutputStream outputStream;
 		try {
 			outputStream = new FileOutputStream(filePath);
-			byte[] strToBytes = str.getBytes();
+			byte[] strToBytes = strToWrite.getBytes();
 			outputStream.write(strToBytes);
 			outputStream.close();
 		} catch (IOException e) {
